@@ -68,6 +68,10 @@ contract ERC20Trackable is ERC20, ERC20Permit, ERC20Votes {
         return roundNumber;
     }
 
+    function incrementRoundNumber() public {
+        roundNumber += 1;
+    }
+
     // key: roundNumber, value: mapping
     mapping(uint16=>mapping(address => CommonStructs.BalanceCommit[])) private _balanceUpdateHistoryMapping;
     /**
