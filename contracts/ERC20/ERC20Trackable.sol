@@ -70,6 +70,20 @@ contract ERC20Trackable is ERC20, ERC20Permit, ERC20Votes {
 
     // key: roundNumber, value: mapping
     mapping(uint16=>mapping(address => CommonStructs.BalanceCommit[])) private _balanceUpdateHistoryMapping;
+    /**
+    {
+        [ round #1 ]: {
+            'address 1': [Commit 1, Commit 2, Commit 3, ...],
+            'address 2': [Commit 1, Commit 2, Commit 3, ...],
+            ...
+        },
+        [ round #2 ]: {
+            'address 1': [Commit 1, Commit 2, Commit 3, ...],
+            'address 2': [Commit 1, Commit 2, Commit 3, ...],
+            ...
+        },
+        ...
+    } */
 
     // Override
     function _mint(address _to, uint256 _amount)
