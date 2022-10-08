@@ -72,6 +72,60 @@ contract VestingAirDrop {
         require(sumOfTotalAirdropAmountPerRound == _totalAirdropVolumePerRound);  // double-chceck input array
     }
 
+    // Token contract info getter
+    function getTokenInfo() public view returns (CommonStructs.TokenInfo memory) {
+        CommonStructs.TokenInfo memory _tokenInfo;
+        _tokenInfo.totalSupply = token.totalSupply();
+        _tokenInfo.name = token.name();
+        _tokenInfo.symbol = token.symbol();
+        _tokenInfo.DAOName = token.getDAOName();
+        _tokenInfo.intro = token.getIntro();
+        _tokenInfo.image = token.getImage();
+        _tokenInfo.link = token.getLink();
+        _tokenInfo.owner = token.getOwner();
+        _tokenInfo.tokenContractAddress = address(token);
+        return _tokenInfo;
+    }
+
+    // Constructor input params info getters
+    function getTokenAddress() public view returns (address) {
+        return address(token);
+    }
+
+    function getAirdropSnapshotTimestamps() public view returns (uint64[] memory) {
+        return airdropSnapshotTimestamps;
+    }
+
+    function getRoundDurationInDays() public view returns (uint32) {
+        return roundDurationInDays;
+    }
+    
+    function getNumOfTotalRounds() public view returns (uint32) {
+        return numOfTotalRounds;
+    }
+
+    function getAirdropTargetAddresses() public view returns (address[] memory) {
+        return airdropTargetAddresses;
+    }
+
+    function getAirdropAmountPerRoundByAddress(address _address) public view returns (uint256) {
+        return addressToAirdropVolumePerRound[_address];
+    }
+
+    function getTotalAirdropVolumePerRound() public view returns (uint256) {
+        return totalAirdropVolumePerRound;
+    }
+
+    // Airdrop rounds info getters
+    function getCalculatedAirdropAmountPerRoundByAddress(uint16 _round, address _address) public view returns (uint256) {
+        // require(msg.sender == _address);  // You can only view your claimmable airdrop amount
+        return _calculatedAirdropAmountPerRoundByAddress[_round][_address];
+        // TODO: restrict for round index out of range.
+    }
+
+    function getInitialBlockNumberByRound(uint16 _round) public view returns (uint32) {
+        return initialBlockNumberByRound[_round];
+    }
 
     /** for each round interval,
      * [ Holding Score ] = [ Number of blocks in certain interval ] * [ Number of token holded at each blocknumber ]
