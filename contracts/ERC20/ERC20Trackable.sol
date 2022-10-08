@@ -9,7 +9,7 @@ import "hardhat/console.sol";
 import {CommonStructs} from "../common/CommonStructs.sol";
 import "./ERC20Votes.sol";
 
-contract ERC20Tracking is ERC20, ERC20Permit, ERC20Votes {
+contract ERC20Trackable is ERC20, ERC20Permit, ERC20Votes {
 
     // round index marker for the last executed Airdrop batch round.
     uint16 private roundNumber = 1;
