@@ -90,6 +90,22 @@ contract ERC20Trackable is ERC20, ERC20Permit, ERC20Votes {
     } */
 
     // Override
+    function _afterTokenTransfer(address _from, address _to, uint256 _amount)  
+        internal
+        override(ERC20, ERC20Votes)
+    {
+        super._afterTokenTransfer(_from, _to, _amount);
+
+        uint256 senderBalance = balanceOf(_from);  // balance of the sender after transfer
+        uint256 recipientBalance = balanceOf(_to);  // balance of the recipient after transfer
+
+        _balanceUpdateHistoryMapping[roundNumber][_from].push(CommonStructs.BalanceCommit({blockNumber: SafeCast.toUint32(block.number), balanceAfterCommit: senderBalance}));
+        _balanceUpdateHistoryMapping[roundNumber][_to].push(CommonStructs.BalanceCommit({blockNumber: SafeCast.toUint32(block.number), balanceAfterCommit: recipientBalance}));
+        
+    }
+
+
+    // Override
     function _mint(address _to, uint256 _amount)
         internal
         override(ERC20, ERC20Votes)
@@ -97,19 +113,12 @@ contract ERC20Trackable is ERC20, ERC20Permit, ERC20Votes {
         super._mint(_to, _amount);
     }
 
+
     // Override
     function _burn(address _account, uint256 _amount)
         internal
         override(ERC20, ERC20Votes)
     {
         super._burn(_account, _amount);
-    }
-
-    // Override
-    function _afterTokenTransfer(address _from, address _to, uint256 _amount)  
-        internal
-        override(ERC20, ERC20Votes)
-    {
-        super._afterTokenTransfer(_from, _to, _amount);
     }
 }
