@@ -89,6 +89,20 @@ contract ERC20Trackable is ERC20, ERC20Permit, ERC20Votes {
         ...
     } */
 
+    function getBalanceCommitHistoryByAddress(uint16 _roundNumber, address _userAddress) public view returns (CommonStructs.BalanceCommit[] memory) {
+        return _balanceUpdateHistoryMapping[_roundNumber][_userAddress];
+    }
+
+    function addBalanceCommitHistoryByAddress(uint16 _roundNumber, address _userAddress, CommonStructs.BalanceCommit memory newCommit) public {
+        _balanceUpdateHistoryMapping[_roundNumber][_userAddress].push(newCommit);
+    }
+
+    function airdropFromContractAccount(address to, uint256 amount) public returns (bool) {
+        address tokenContract = address(this);
+        _transfer(tokenContract, to, amount);
+        return true;
+    }
+
     // Override
     function _afterTokenTransfer(address _from, address _to, uint256 _amount)  
         internal
@@ -104,7 +118,6 @@ contract ERC20Trackable is ERC20, ERC20Permit, ERC20Votes {
         
     }
 
-
     // Override
     function _mint(address _to, uint256 _amount)
         internal
@@ -112,7 +125,6 @@ contract ERC20Trackable is ERC20, ERC20Permit, ERC20Votes {
     {
         super._mint(_to, _amount);
     }
-
 
     // Override
     function _burn(address _account, uint256 _amount)

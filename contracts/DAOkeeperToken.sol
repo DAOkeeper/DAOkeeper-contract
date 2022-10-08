@@ -5,7 +5,7 @@ import "./ERC20/ERC20Trackable.sol";
 
 
 // DAO governance token deployment & mint token to the token contract itself
-contract DAOForceToken is ERC20Trackable {
+contract DAOkeeperToken is ERC20Trackable {
     
     constructor(
         string memory _name,
