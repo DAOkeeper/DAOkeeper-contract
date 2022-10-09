@@ -19,6 +19,7 @@ async function main() {
 const AirdropContract = await ethers.getContractFactory("VestingAirDrop");
 
 const TOKEN_ADDRESS = addresses.DAOkeeperToken;
+const INFOSTORE_ADDRESS = addresses.ContractInfoStore;
 
 
 AIRDROP_SNAPSHOT_TIMESTAMPS = [
@@ -46,7 +47,8 @@ const Airdrop = await AirdropContract.deploy(
     NUM_OF_TOTAL_ROUNDS,
     AIRDROP_TARGET_ADDRESSES,
     AIRDROP_AMOUNTS_PER_ROUND_BY_ADDRESS,
-    TOTAL_AIRDROP_VOLUME_PER_ROUND
+    TOTAL_AIRDROP_VOLUME_PER_ROUND,
+    INFOSTORE_ADDRESS
 );
 
 console.log('>>> Deployment in progress...')

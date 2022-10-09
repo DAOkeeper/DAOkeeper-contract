@@ -2,6 +2,8 @@
 // yours, or create new ones.
 
 const path = require("path");
+const { addresses } = require('../rpc/utils/deployInfo');
+
 
 
 async function main() {
@@ -26,6 +28,8 @@ async function main() {
   // Token Contract
   const TokenContract = await ethers.getContractFactory("DAOkeeperToken");
   
+  const INFOSTORE_ADDRESS = addresses.ContractInfoStore;
+
   // Token instance
   const Token = await TokenContract.deploy(
       "DAOkeeperToken",  // token name
@@ -35,6 +39,7 @@ async function main() {
       "https://ipfs.io/ipfs/bafybeie4lxug2vxod3clrb3krv5e2bbrmpexjgdzdfqkewbkc5egol3nmu/ef_image_white.png",  // DAO image
       "some_website_link",  // DAO website url
       1500,  // initial supply; DECIMAL == 18
+      INFOSTORE_ADDRESS
     );
   console.log('>>> Deployment in progress...')
   await Token.deployed();

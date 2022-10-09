@@ -35,6 +35,11 @@ exports.abi = [
         "internalType": "uint256",
         "name": "_initial_supply",
         "type": "uint256"
+      },
+      {
+        "internalType": "contract ContractInfoStore",
+        "name": "_contractInfoStoreAddress",
+        "type": "address"
       }
     ],
     "stateMutability": "nonpayable",
