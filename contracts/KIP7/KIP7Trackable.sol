@@ -4,13 +4,16 @@ pragma solidity ^0.8.0;
 import "@klaytn/contracts/KIP/token/KIP7/KIP7.sol";
 import "@klaytn/contracts/KIP/token/KIP7/extensions/draft-KIP7Permit.sol";
 import "@klaytn/contracts/utils/math/SafeCast.sol";
-
 import "hardhat/console.sol";
 
 import {CommonStructs} from "../common/CommonStructs.sol";
 import "./KIP7Votes.sol";
+import "../ContractInfoStore.sol";
+
 
 contract KIP7Trackable is KIP7, KIP7Permit, KIP7Votes {
+    
+    ContractInfoStore contractInfoStore;
 
     // round index marker for the last executed Airdrop batch round.
     uint16 private roundNumber = 1;
@@ -28,13 +31,31 @@ contract KIP7Trackable is KIP7, KIP7Permit, KIP7Votes {
         string memory intro,
         string memory image,
         string memory link,
-        uint256 _initial_supply
+        uint256 _initial_supply,
+        address mintedERC20ContractAddr,
+        ContractInfoStore _contractInfoStoreAddress
     ) KIP7 (_name, _symbol) KIP7Permit(_name) {
         _DAOName = DAOName;
         _intro = intro;
         _image = image;
         _link = link;
         _owner = msg.sender;
+
+        CommonStructs.TokenInfo memory _tokenInfo = CommonStructs.TokenInfo(
+            _initial_supply * 10 ** uint(decimals()),
+            _name,
+            _symbol,
+            DAOName,
+            intro,
+            image,
+            link,
+            _owner,
+            mintedERC20ContractAddr
+        );
+
+        contractInfoStore = _contractInfoStoreAddress;
+        // contractInfoStore = ContractInfoStore(contractInfoStoreAddr);
+        contractInfoStore.storeNewGovernanceToken(_tokenInfo);
     }
 
     function getTokenName() public view returns (string memory) {
