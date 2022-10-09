@@ -1,13 +1,3 @@
-# Sample Hardhat Project
+# DAOkeeper
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
-
-Try running some of the following tasks:
-
-```shell
-npx hardhat help
-npx hardhat test
-REPORT_GAS=true npx hardhat test
-npx hardhat node
-npx hardhat run scripts/deploy.js
-```
+![DAOkeeper_logo](https://user-images.githubusercontent.com/91793849/194746679-5205b2aa-62f9-4e82-9aa2-3076e0d6d63f.svg)
