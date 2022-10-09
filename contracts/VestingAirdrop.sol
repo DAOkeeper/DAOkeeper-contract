@@ -124,6 +124,15 @@ contract VestingAirDrop {
         // TODO: restrict for round index out of range.
     }
 
+    // return in percentage (uint256)
+    function getCalculatedAirdropScoreRatioPerRoundByAddress(uint16 _round, address _address) public view returns (uint256) {
+        // basic_amount * ratio / 100 = calculated_amount
+        // ratio = 100 * calculated_amount / basic_amount
+        uint256 calculatedAirdropAmount = getCalculatedAirdropAmountPerRoundByAddress(_round, _address);
+        uint256 basicAirdropAmount = getAirdropAmountPerRoundByAddress(_address);
+        return 100 * calculatedAirdropAmount / basicAirdropAmount;
+    }
+
     function getInitialBlockNumberByRound(uint16 _round) public view returns (uint32) {
         return initialBlockNumberByRound[_round];
     }

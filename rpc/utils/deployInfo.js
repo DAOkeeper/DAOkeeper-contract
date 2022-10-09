@@ -2,8 +2,8 @@
 // network: Klaytn Baobab testnet
 
 const addressObject = {
-    DAOkeeperToken: "0xC66FDd2a4d18007AAaCd13995cA632D7f1E73153",
-    VestingAirdrop: "0x66a155D52cd4280327c6BE1a0D09272B1fD597A2",
+    DAOkeeperToken: "0xEe6c7d5570CebB7E9BF97BC7029de1E322DF297c",
+    VestingAirdrop: "0x755245BB46eD35a3A35b8807b05cBcA256186AB1",
 };
 
 exports.addresses = addressObject;
