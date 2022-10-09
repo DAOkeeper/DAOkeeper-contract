@@ -5,9 +5,9 @@ const ethers = require('ethers');
 
 const provider = new ethers.providers.JsonRpcProvider(rpcProviderUrl);
 
-const address = addresses.DAOForceToken;
+const address = addresses.DAOkeeperToken;
 
-const privateKey = process.env.DEPLOY_PRIVATE_KEY;
+const privateKey = process.env.KLAYTN_PRIVATE_KEY;
 
 const wallet = new ethers.Wallet(privateKey,provider);
 
@@ -18,7 +18,7 @@ const contract = new ethers.Contract(address,abi,wallet);
 */
 
 const ROUND = 1;
-const ADDRESS = process.env.CHARLIE_ADDRESS;
+const ADDRESS = process.env.KLAYTN_CHARLIE_ADDRESS;
 
 // ERC20 getters
 const totalSupplyPromise = contract.totalSupply();
@@ -35,7 +35,7 @@ const getVotesPromise = contract.getVotes(ADDRESS);
 const getPastVotesPromise = contract.getPastVotes(ADDRESS, BLOCKNUMBER);
 const getPastTotalSupplyPromise = contract.getPastTotalSupply(BLOCKNUMBER);
 
-// ERC20Trackable getters
+// KIP7Trackable getters
 const getDAONamePromise = contract.getDAOName();
 const getIntroPromise = contract.getIntro();
 const getImagePromise = contract.getImage();
