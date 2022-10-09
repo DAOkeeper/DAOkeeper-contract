@@ -1,9 +1,10 @@
 // SPDX-License-Identifier: MIT
-import "@openzeppelin/contracts/utils/math/SafeCast.sol";
+import "@klaytn/contracts/utils/math/SafeCast.sol";
+
 import "hardhat/console.sol";
 
 import "./common/CommonStructs.sol";
-import "./ERC20/ERC20Trackable.sol";
+import "./KIP7/KIP7Trackable.sol";
 import "./DAOkeeperToken.sol";
 
 pragma solidity ^0.8.0;
