@@ -1,11 +1,12 @@
 // SPDX-License-Identifier: MIT
 import "@klaytn/contracts/utils/math/SafeCast.sol";
-
 import "hardhat/console.sol";
 
 import "./common/CommonStructs.sol";
 import "./KIP7/KIP7Trackable.sol";
 import "./DAOkeeperToken.sol";
+import "./ContractInfoStore.sol";
+
 
 pragma solidity ^0.8.0;
 
@@ -17,6 +18,7 @@ contract VestingAirDrop {
     // Airdrop token
 
     DAOkeeperToken public token;
+    ContractInfoStore public contractInfoStore;  // New
     uint32 public numOfTotalRounds;
     uint32 public roundDurationInDays;
     uint256 public totalAirdropVolumePerRound;
@@ -51,12 +53,17 @@ contract VestingAirDrop {
         uint32 _numOfTotalRounds,
         address[] memory _airdropTargetAddresses,
         uint256[] memory _airdropAmountsPerRoundByAddress,
-        uint256 _totalAirdropVolumePerRound
+        uint256 _totalAirdropVolumePerRound,
+        ContractInfoStore _contractInfoStoreAddress
     ){
         token = _tokenAddress;
 
+        contractInfoStore = _contractInfoStoreAddress;
+
         // Only the owner of the token contract can deploy the airdrop contract
         require(msg.sender == token.getOwner());
+
+        contractInfoStore.addAirdropTokenAddress(address(token), address(this), airdropTargetAddresses);
 
         airdropSnapshotTimestamps = _airdropSnapshotTimestamps;
         roundDurationInDays = _roundDurationInDays;
