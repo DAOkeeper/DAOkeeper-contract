@@ -3,7 +3,7 @@
 
 const addressObject = {
     DAOkeeperToken: "0xa4632c39c508f050a7ac6abb0bbc7a30585706d0",
-    VestingAirdrop: "",
+    VestingAirdrop: "0x4C889467bdB6856666ecbF1866a5d038b7f9113D",
 };
 
 exports.addresses = addressObject;
